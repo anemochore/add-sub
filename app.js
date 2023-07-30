@@ -22,7 +22,6 @@ function entry(el) {
   fr.onload = async (e) => {
     const ext = file.name.split('.').pop();
     let vtt = fr.result;
-
     if(ext == 'smi' && !vtt.startsWith('<SAMI>')) {
       //quick fix for subsrt. redundant <BODY> tags is no problem.
       vtt = '<SAMI><BODY>' + vtt + '</BODY></SAMI>';
