@@ -17,7 +17,6 @@
 
 function entry(el) {
   const file = el.files[0];
-
   const fr = new FileReader();
   fr.readAsText(file);
   fr.onload = async (e) => {
@@ -122,7 +121,6 @@ function quick_and_dirty_vtt_or_srt_parser(vtt) {
   }
 
   return cues;
-
 
   function parse_timestamp(s) {
     //var match = s.match(/^(?:([0-9]{2,}):)?([0-5][0-9]):([0-5][0-9][.,][0-9]{0,3})/);
