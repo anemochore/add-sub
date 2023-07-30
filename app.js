@@ -79,7 +79,7 @@ async function loadScript(url) {
 
 function quick_and_dirty_vtt_or_srt_parser(vtt) {
   //modified https://gist.github.com/Delnegend/4a5e1ebf5b59ca1b2a07bd4f55e13cf6
-  var lines = vtt.trim().replace('\r\n', '\n').replace('\r', '\n').split(/\n/).map(function(line) {
+  var lines = vtt.trim().replace(/\r\n/g, '\n').replace(/\r/g, '\n').split(/\n/).map(function(line) {
     return line.trim();
   });
   var cues = [];
