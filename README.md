@@ -1,6 +1,6 @@
 # add-sub
 
-Add local subtitles file onto current page by adding [<track> element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track). For example, useful for watching online (not on OTT) an English movie (without Korean sub) with Korean sub that I have on local.
+Add local subtitles file onto current page by adding [`track` element](https://developer.mozilla.org/en-US/docs/Web/HTML/Element/track). For example, useful for watching online (not on OTT) an English movie (without Korean sub) with Korean sub that I have on local.
 
 ## usage
 1. Copy all of [`app.js`](https://anemochore.github.io/add-sub/app.js). [Bookmarklet (minified) use](https://en.wikipedia.org/wiki/Bookmarklet) may not be possible on `iframe` pages.
