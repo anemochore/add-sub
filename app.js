@@ -81,7 +81,7 @@ async function sub2vtt(ext, subLines) {
   //convert it to vtt using https://github.com/papnkukn/subsrt
   //browerified one was found here: https://github.com/wepplication/tools/
   if(!window.require)
-    await loadScript('https://anemochore.github.io/add-sub/master/lib/subsrt.bundle_fy.js');
+    await loadScript('https://anemochore.github.io/add-sub/lib/subsrt.bundle_fy.js');
   const subsrt = require("subsrt");
   const vtt = subsrt.convert(subLines, { format: 'vtt'});
   console.debug(vtt);
