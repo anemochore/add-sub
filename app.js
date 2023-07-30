@@ -33,7 +33,7 @@ function entry(el) {
     const track = video.addTextTrack("subtitles", "Korean", "ko");  //assuming Korean
     track.mode = "showing";
 
-    const cues = quick_and_dirty_vtt_or_srt_parser(vtt)
+    const cues = quick_and_dirty_vtt_or_srt_parser(vtt);
     cues.forEach(cue => {
       track.addCue(cue);
     });
