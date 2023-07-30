@@ -5,15 +5,6 @@
     return;
   }
 
-  /*
-  var data = 
-  `WEBVTT
-
-  00:28.000 --> 00:29.000
-  한글 <i>테<i>스트`
-  .split('\n');
-  */
-
   //load subtitles from user input
   const i = document.createElement('input');
   i.type = 'file', i.name = 'inputfile', i.id = 'inputfile';
@@ -38,11 +29,14 @@ function entry(el) {
       vtt = '<SAMI><BODY>' + vtt + '</BODY></SAMI>';
     }
     if(ext != 'vtt') vtt = await sub2vtt(ext, vtt);
+    //console.debug(vtt);
 
     const video = document.querySelector('video');
     const track = video.addTextTrack("subtitles", "Korean", "ko");  //assuming Korean
     track.mode = "showing";
-    quick_and_dirty_vtt_or_srt_parser(vtt).forEach(cue => {
+
+    const cues = quick_and_dirty_vtt_or_srt_parser(vtt)
+    cues.forEach(cue => {
       track.addCue(cue);
     });
 
@@ -50,22 +44,12 @@ function entry(el) {
     const i = document.querySelector('#inputfile');
     i.style.display = 'none';
 
-    console.debug(track.cues);
+    //console.debug(track.cues);
   };
 }
 
   /*
-  const track = document.createElement('track');
-  Object.assign(track, {
-      label: 'language',
-      default: true,
-      src: url,  //file (or blob to) url not working.
-  });
-  console.log(track.cues);
-  video.appendChild(track);
-  */
-
-  /*
+  //jwplayer의 경우
   tracks.push({
     data: [new VTTCue(30, 31, '한글 <i>테스트</i>2'), new VTTCue(32, 33, '한글 테스트222')],  //italics seems not working either
     kind: 'captions',
@@ -76,7 +60,6 @@ function entry(el) {
   j.setup(orgSetup);
   */
 
-
 async function sub2vtt(ext, subLines) {
   //convert it to vtt using https://github.com/papnkukn/subsrt
   //browerified one was found here: https://github.com/wepplication/tools/
@@ -84,7 +67,6 @@ async function sub2vtt(ext, subLines) {
     await loadScript('https://anemochore.github.io/add-sub/lib/subsrt.bundle_fy.js');
   const subsrt = require("subsrt");
   const vtt = subsrt.convert(subLines, { format: 'vtt'});
-  console.debug(vtt);
   return vtt;
 }
 
@@ -99,8 +81,8 @@ async function loadScript(url) {
 }
 
 function quick_and_dirty_vtt_or_srt_parser(vtt) {
-  //https://gist.github.com/Delnegend/4a5e1ebf5b59ca1b2a07bd4f55e13cf6
-  var lines = vtt.trim().replace('\r\n', '\n').split(/[\r\n]/).map(function(line) {
+  //modified https://gist.github.com/Delnegend/4a5e1ebf5b59ca1b2a07bd4f55e13cf6
+  var lines = vtt.trim().replace('\r\n', '\n').replace('\r', '\n').split(/\n/).map(function(line) {
     return line.trim();
   });
   var cues = [];
@@ -108,6 +90,7 @@ function quick_and_dirty_vtt_or_srt_parser(vtt) {
   var end = null;
   var payload = null;
   for (var i = 0; i < lines.length; i++) {
+    console.debug(lines[i]);
     if (lines[i].indexOf('-->') >= 0) {
       var splitted = lines[i].split(/[ \t]+-->[ \t]+/);
       if (splitted.length != 2) {
@@ -119,6 +102,7 @@ function quick_and_dirty_vtt_or_srt_parser(vtt) {
       end = parse_timestamp(splitted[1]);
     } else if (lines[i] == '') {
       if (start && end) {
+        console.debug(payload);
         var cue = new VTTCue(start, end, payload);
         cues.push(cue);
         start = null;
