@@ -24,10 +24,10 @@ function entry(el) {
     let vtt = fr.result;
 
     if(ext == 'smi' && !vtt.startsWith('<SAMI>')) {
-      //quick fix. redundant <BODY> tags is no problem.
+      //quick fix for subsrt. redundant <BODY> tags is no problem.
       vtt = '<SAMI><BODY>' + vtt + '</BODY></SAMI>';
     }
-    if(ext != 'vtt') vtt = await sub2vtt(ext, vtt);
+    if(ext != 'vtt') vtt = await sub2vtt(vtt);
     //console.debug(vtt);
 
     const video = document.querySelector('video');
@@ -59,9 +59,8 @@ function entry(el) {
   j.setup(orgSetup);
   */
 
-async function sub2vtt(ext, subLines) {
-  //convert it to vtt using https://github.com/papnkukn/subsrt
-  //browerified one was found here: https://github.com/wepplication/tools/
+async function sub2vtt(subLines) {
+  //convert to vtt using https://github.com/papnkukn/subsrt
   if(!window.require)
     await loadScript('https://anemochore.github.io/add-sub/lib/subsrt.bundle_fy.js');
   const subsrt = require("subsrt");
