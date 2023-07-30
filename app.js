@@ -90,7 +90,6 @@ function quick_and_dirty_vtt_or_srt_parser(vtt) {
   var end = null;
   var payload = null;
   for (var i = 0; i < lines.length; i++) {
-    console.debug(lines[i]);
     if (lines[i].indexOf('-->') >= 0) {
       var splitted = lines[i].split(/[ \t]+-->[ \t]+/);
       if (splitted.length != 2) {
@@ -102,7 +101,7 @@ function quick_and_dirty_vtt_or_srt_parser(vtt) {
       end = parse_timestamp(splitted[1]);
     } else if (lines[i] == '') {
       if (start && end) {
-        console.debug(payload);
+        //console.debug(payload);
         var cue = new VTTCue(start, end, payload);
         cues.push(cue);
         start = null;
