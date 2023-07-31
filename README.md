@@ -13,3 +13,7 @@ Add local subtitles file onto current page by adding [`track` element](https://d
 ## 3rd party license
 
 Converts various subtitles formats to WebVTT via modified [papnkukn/subsrt](https://github.com/papnkukn/subsrt), MIT license.
+
+## changelog
+- 23-7-31: first commit
+- 23-7-31: fixing issues of papnkukn/subsrt...
